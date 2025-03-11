@@ -254,7 +254,7 @@ namespace Lab_7
                         marks[iter++] = scores[j, k, i];
                     }
                 }
-                judges[i] = new Purple_1.Judge($"Jusge No{i + 1}", marks);
+                judges[i] = new Purple_1.Judge($"Judge No{i + 1}", marks);
             }
 
             Purple_1.Competition competiton = new Purple_1.Competition(judges);
@@ -830,7 +830,10 @@ namespace Lab_7
             {
                 Purple_5.Research research = report.MakeResearch();
 
-                research.Add(new string[] { responses[i, 0], responses[i, 1], responses[i, 2] });
+                string[] resp = new string[] { responses[i, 0], responses[i, 1], responses[i, 2] };
+                Console.WriteLine(resp);
+                research.Add(resp);
+                Console.WriteLine(research.Responses);
             }
 
             (string, double)[] generalReport = report.GetGeneralReport(3);

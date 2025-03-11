@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
@@ -133,7 +134,7 @@ namespace Lab_7
 
             public void Jump(int[] marks)
             {
-                if (marks is null || marks.Length != 7)
+                if (marks is null || marks.Length != 7 || _jumpIndex >= 4)
                 {
                     return;
                 }
@@ -159,7 +160,21 @@ namespace Lab_7
                 int n = array.Length;
                 for (int i = 1, j = 2; i < n;)
                 {
-                    if (i == 0 || array[i].TotalScore < array[i - 1].TotalScore)
+                    if (i == 0) 
+                    {
+                        i = j;
+                        j++;
+                    } else  if (array[i] == null)
+                    {
+                        i = j;
+                        j++;
+                    } else if (array[i - 1] == null)
+                    {
+                        Participant temp = array[i];
+                        array[i] = array[i - 1];
+                        array[i - 1] = temp;
+                        i--;
+                    } else if (array[i].TotalScore < array[i - 1].TotalScore)
                     {
                         i = j;
                         j++;
@@ -190,7 +205,6 @@ namespace Lab_7
             private string _name;
             private int[] _marks;
             private int _marksOffset;
-
             public string Name
             {
                 get
@@ -218,7 +232,7 @@ namespace Lab_7
             {
                 if (_marks == null || _marks.Length == 0)
                     return 0;
-                if (_marksOffset > _marks.Length)
+                if (_marksOffset >= _marks.Length)
                     _marksOffset %= _marks.Length;
                 return _marks[_marksOffset++];
             }
@@ -235,6 +249,33 @@ namespace Lab_7
         {
             private Judge[] _judges;
             private Participant[] _participants;
+
+            public Judge[] Judges {
+                get
+                {
+                    if (_judges == null)
+                        return null;
+
+                    Judge[] judgesCopy = new Judge[_judges.Length];
+                    Array.Copy(_judges, judgesCopy, _judges.Length);
+
+                    return judgesCopy;
+                }
+            }
+            
+            public Participant[] Participants
+            {
+                get
+                {
+                    if (_participants == null)
+                        return null;
+
+                    Participant[] participantsCopy = new Participant[_participants.Length];
+                    Array.Copy(_participants, participantsCopy, _participants.Length);
+
+                    return participantsCopy;
+                }
+            }
 
             public Competition(Judge[] judges)
             {
@@ -257,11 +298,10 @@ namespace Lab_7
 
                 int[] marks = new int[_judges.Length];
 
-                for (int j = 0; j < _judges.Length; j++)
+                for (int j = 0, iter = 0; j < _judges.Length; j++)
                 {
-                    marks[j] = _judges[j].CreateMark();
-                    if (marks[j] == 0)
-                        return;
+                    if (_judges[j] != null)
+                        marks[iter++] = _judges[j].CreateMark();
                 }
 
                 jumper.Jump(marks);
@@ -279,6 +319,7 @@ namespace Lab_7
 
                 _participants[_participants.Length - 1] = participant;   
 
+                Evaluate(_participants[_participants.Length - 1]);
             }
 
             public void Add(Participant[] participants)
@@ -298,7 +339,11 @@ namespace Lab_7
                 for (int i = 0, k = _participants.Length - cnt; i < participants.Length; i++)
                 {
                     if (participants[i] != null)
-                        _participants[k++] = participants[i];
+                    {
+                        _participants[k] = participants[i];
+                        Evaluate(_participants[k++]);
+                    }
+                        
                 }
 
             }

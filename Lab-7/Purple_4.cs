@@ -201,8 +201,11 @@ namespace Lab_7
 
             public static Group Merge(Group group1, Group group2)
             {
-                if (group1.Sportsmen is null || group2.Sportsmen is null)
+                if (group1.Sportsmen == null && group2.Sportsmen == null)
                     return new Group("Финалисты");
+
+                if (group1.Sportsmen == null) return group2;
+                if (group2.Sportsmen == null) return group1;
 
                 Sportsman[] sportsmen = new Sportsman[group1.Sportsmen.Length + group2.Sportsmen.Length];
                 int l = 0, r = 0;
@@ -211,8 +214,6 @@ namespace Lab_7
 
                 while (l < group1.Sportsmen.Length && r < group2.Sportsmen.Length)
                 {
-                    //group1.Sportsmen[l].Print();
-                    //group2.Sportsmen[r].Print();
                     if (group1.Sportsmen[l].Time < group2.Sportsmen[r].Time)
                     {
                         final.Add(group1.Sportsmen[l++]);
@@ -234,10 +235,6 @@ namespace Lab_7
                     final.Add(group2.Sportsmen[r++]);
                 }
 
-                //for (int i = 0; i < sportsmen.Length; i++)
-                //{
-                //    sportsmen[i].Print();
-                //}
 
                 return final;
             }
@@ -252,11 +249,11 @@ namespace Lab_7
                 int menCnt = 0, womenCnt = 0;
                 for (int i = 0; i < _sportsmen.Length; i++)
                 {
-                    if (_sportsmen[i] != null && _sportsmen[i] is SkiMan)
+                    if (_sportsmen[i] is SkiMan)
                     {
                         menCnt++;
                     }
-                    if (_sportsmen[i] != null && _sportsmen[i] is SkiWoman)
+                    if ( _sportsmen[i] is SkiWoman)
                     {
                         womenCnt++;
                     }
@@ -266,11 +263,11 @@ namespace Lab_7
 
                 for (int i = 0, m = 0, w = 0; i < _sportsmen.Length; i++)
                 {
-                    if (_sportsmen[i] != null && _sportsmen[i] is SkiMan)
+                    if (_sportsmen[i] is SkiMan)
                     {
                         men[m++] = _sportsmen[i];   
                     }
-                    if (_sportsmen[i] != null && _sportsmen[i] is SkiWoman)
+                    if (_sportsmen[i] is SkiWoman)
                     {
                         women[w++] = _sportsmen[i];
                     }
@@ -316,13 +313,12 @@ namespace Lab_7
             }
         }
 
-
         public class SkiMan: Sportsman
         {
             public SkiMan(string name, string surname): base(name, surname) { }
 
             public SkiMan(string name, string surname, int time) : base(name, surname) {
-                base.Run(time);
+                Run(time);
             }
         }
 
@@ -332,7 +328,7 @@ namespace Lab_7
 
             public SkiWoman(string name, string surname, int time) : base(name, surname)
             {
-                base.Run(time);
+                Run(time);
             }
         }
     }

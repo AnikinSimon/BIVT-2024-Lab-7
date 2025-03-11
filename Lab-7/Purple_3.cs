@@ -96,7 +96,7 @@ namespace Lab_7
 
             public void Evaluate(double result)
             {
-                if (_curMark == 7 || _marks is null) return;
+                if (_marks is null || _curMark == 7) return;
 
                 if (result < 0 || result > 6)
                 {
@@ -242,7 +242,6 @@ namespace Lab_7
                 Console.WriteLine($"{_name} {_surname} {Score} {TopPlace} {TotalMark}");
             }
 
-
         }
 
         public abstract class Skating
@@ -251,24 +250,48 @@ namespace Lab_7
             protected double[] _moods;
             private int _offsetParticipants;
 
-            protected abstract void ModificateMood(double[] moods);
+            public Participant[] Participants
+            {
+                get
+                {
+                    return _participants;
+                }
+            }
+
+            public double[] Moods
+            {
+                get
+                {
+                    if (_participants == null)
+                        return null;
+
+                    double[] moodsCopy = new double[_moods.Length];
+                    Array.Copy(_moods, moodsCopy, _moods.Length);
+
+                    return moodsCopy;
+                }
+            }
+
+            protected abstract void ModificateMood();
 
             public Skating(double[] moods)
             {
                 if (moods == null)
                     return;
 
-                ModificateMood(moods);
                 _moods = new double[moods.Length];
                 Array.Copy(moods, _moods, moods.Length);
+
+                ModificateMood();
+                
                 _participants = new Participant[0];
             }
 
             public void Evaluate(double[] marks)
             {
-                if (_participants == null || _participants.Length == 0 || _offsetParticipants == _participants.Length) return;
+                if (_participants == null || _moods is null || marks is null) return;
 
-                if (_moods is null || marks is null || _moods.Length != marks.Length)
+                if (_participants.Length == 0 || _offsetParticipants == _participants.Length || _moods.Length != marks.Length) return;
 
                 for (int i = 0; i < _moods.Length; i++)
                 {
@@ -279,9 +302,9 @@ namespace Lab_7
 
             public void Add(Participant participant)
             {
-
                 if (_participants is null)
                     _participants = new Participant[0];
+
 
                 Array.Resize(ref _participants, _participants.Length + 1);
 
@@ -291,9 +314,13 @@ namespace Lab_7
 
             public void Add(Participant[] participants)
             {
-                if (participants is null || participants.Length == 0)
+                if (participants is null)
                     return;
 
+                if (_participants is null)
+                {
+                    _participants = new Participant[0];
+                }
 
                 Array.Resize(ref _participants, _participants.Length + participants.Length);
 
@@ -304,30 +331,29 @@ namespace Lab_7
 
             }
 
-
         }
 
         public class FigureSkating: Skating
         {
             public FigureSkating(double[] moods): base(moods) { }
-            protected override void ModificateMood(double[] moods)
+            protected override void ModificateMood()
             {
-                if (moods is null || moods.Length == 0) return;
+                if (_moods is null || _moods.Length == 0) return;
 
-                for (int i = 0; i < moods.Length; i++)
-                    moods[i] += ((i + 1) / 10.0);
+                for (int i = 0; i < _moods.Length; i++)
+                    _moods[i] += ((i + 1) / 10.0);
             }
         }
 
         public class IceSkating : Skating
         {
             public IceSkating(double[] moods) : base(moods) { }
-            protected override void ModificateMood(double[] moods)
+            protected override void ModificateMood()
             {
-                if (moods is null || moods.Length == 0) return;
+                if (_moods is null || _moods.Length == 0) return;
 
-                for (int i = 0; i < moods.Length; i++)
-                    moods[i] *= (1 + (i + 1) / 100.0);
+                for (int i = 0; i < _moods.Length; i++)
+                    _moods[i] *= (1 + (i + 1) / 100.0);
             }
         }
 

@@ -57,15 +57,15 @@ namespace Lab_7
                     switch (questionNumber)
                     {
                         case 1:
-                            if (responses[i].Animal != null)
+                            if (responses[i].Animal != null && responses[i].Animal == this.Animal)
                                 count++;
                             break;
                         case 2:
-                            if (responses[i].CharacterTrait != null)
+                            if (responses[i].CharacterTrait != null && responses[i].CharacterTrait == this.CharacterTrait)
                                 count++;
                             break;
                         case 3:
-                            if (responses[i].Concept != null)
+                            if (responses[i].Concept != null && responses[i].Concept == this.Concept)
                                 count++;
                             break;
                     }
@@ -80,7 +80,7 @@ namespace Lab_7
             }
         }
 
-        public class Research
+        public struct Research
         {
             private string _name;
             private Response[] _responses;
@@ -97,10 +97,7 @@ namespace Lab_7
             {
                 get
                 {
-                    if (_responses is null) return null;
-                    Response[] responsesCopy = new Response[_responses.Length];
-                    Array.Copy(_responses, responsesCopy, _responses.Length);
-                    return responsesCopy;
+                    return _responses;
                 }
             }
 
@@ -115,9 +112,12 @@ namespace Lab_7
                 if (answers == null || answers.Length != 3 || _responses == null)
                     return;
 
+                Console.WriteLine("{0}, {1}, {2}", answers[0], answers[1], answers[2]);
+
                 Response response = new Response(answers[0], answers[1], answers[2]);
                 Array.Resize(ref _responses, _responses.Length + 1);
                 _responses[_responses.Length - 1] = response;
+                _responses[_responses.Length - 1].Print();
             }
 
             public string[] GetTopResponses(int question)
@@ -178,10 +178,7 @@ namespace Lab_7
             {
                 get
                 {
-                    if (_researches is null) return null;
-                    Research[] researchesCopy = new Research[_researches.Length];
-                    Array.Copy(_researches, researchesCopy, researchesCopy.Length);
-                    return researchesCopy;
+                    return _researches;
                 }
             }
 
@@ -205,9 +202,11 @@ namespace Lab_7
 
                 Array.Resize(ref _researches, _researches.Length + 1);
 
-                _researches[_researches.Length - 1] = new Research(reseachName);
+                Research newResearch = new Research(reseachName);
 
-                return _researches[_researches.Length - 1];
+                _researches[_researches.Length - 1] = newResearch;
+
+                return newResearch;
             }
 
             public (string, double)[] GetGeneralReport(int question)
@@ -231,9 +230,10 @@ namespace Lab_7
                                 where resp != null
                                 select resp).ToArray();
 
+
                 (string, double)[] generalReport = res
                                                 .GroupBy(word => word)
-                                                .Select(group => (group.Key,100.0 * group.Count() / res.Length))
+                                                .Select(group => (group.Key, 100.0 * group.Count() / res.Length))
                                                 .ToArray();
 
 

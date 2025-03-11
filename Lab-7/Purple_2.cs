@@ -73,10 +73,6 @@ namespace Lab_7
             {
                 if (_marks is null || marks is null || marks.Length != 5) return;
 
-                if (target < 0) target = 0;
-
-                if (distance < 0) return;
-
                 for (int i = 0; i < 5; i++)
                 {
                     if (marks[i] < 1 || marks[i] > 20)
@@ -159,13 +155,7 @@ namespace Lab_7
             public Participant[] Participants
             {
                 get {
-                    if (_participants == null)
-                        return null;
-
-                    Participant[] participantsCopy = new Participant[_participants.Length];
-                    Array.Copy(_participants, participantsCopy, _participants.Length);
-
-                    return participantsCopy;
+                    return _participants;
                 }
             }
 
@@ -190,9 +180,11 @@ namespace Lab_7
 
             public void Add(Participant[] participants)
             {
-                if (participants is null || participants.Length == 0)
+                if (participants is null)
                     return;
 
+                if (_participants is null)
+                    _participants = new Participant[0];
 
                 Array.Resize(ref _participants, _participants.Length + participants.Length);
 

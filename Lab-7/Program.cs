@@ -21,7 +21,7 @@ namespace Lab_7
             //Test_Purple_1_2();
             //Test_Purple_2_2();
             //Test_Purple_2_3();
-            //Test_Purple_3_3();
+            Test_Purple_3_3();
             //Test_Purple_4_3();
             //Test_Purple_5_2();
         }
@@ -539,8 +539,16 @@ namespace Lab_7
             {
                 Purple_3.Participant part = new Purple_3.Participant(namesTask_3[i, 0], namesTask_3[i, 1]);
                 iceSkating.Add(part);
+                iceSkating.Add(null);
                 iceSkating.Evaluate(marksTask_3[i]);
             }
+
+            var parts = iceSkating.Participants;
+            Purple_3.Participant.SetPlaces(parts);
+            Purple_3.Participant.Sort(parts);
+
+            foreach (var part in parts)
+                part.Print();
         }
 
         static void Test_Purple_4_1()
@@ -688,6 +696,7 @@ namespace Lab_7
                 group2.Add(sport);
                 //sportsmen2[i].Print();
             }
+
 
 
             group1.Add(group2);

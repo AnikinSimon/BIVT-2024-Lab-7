@@ -131,7 +131,7 @@ namespace Lab_7
                             participants[i - 1] = tmp;
                             i--;
                         }
-                        else if (participants[i].Marks[judge] < participants[i - 1].Marks[judge])
+                        else if (participants[i].Marks[judge] <= participants[i - 1].Marks[judge])
                         {
                             i = j;
                             j++;
@@ -144,12 +144,13 @@ namespace Lab_7
                             i--;
                         }
                     }
-                    for (int place = 0; place < participants.Length; place++)
+                    for (int idx = 0, place = 1; idx < participants.Length; idx++)
                     {
-                        if (participants[place]._places != null)
+                        if (participants[idx]._places != null)
                         {
-                            participants[place]._places[judge] = place + 1;
-                            participants[place]._score += place + 1;
+                            participants[idx]._places[judge] = place;
+                            participants[idx]._score += place;
+                            place++;
                         }
                             
                     }
@@ -254,6 +255,7 @@ namespace Lab_7
             {
                 get
                 {
+
                     return _participants;
                 }
             }
@@ -291,7 +293,8 @@ namespace Lab_7
             {
                 if (_participants == null || _moods is null || marks is null) return;
 
-                if (_participants.Length == 0 || _offsetParticipants == _participants.Length || _moods.Length != marks.Length) return;
+                if (_participants.Length == 0 || _offsetParticipants == _participants.Length || marks.Length < _moods.Length) return;
+
 
                 for (int i = 0; i < _moods.Length; i++)
                 {
@@ -357,7 +360,7 @@ namespace Lab_7
             }
         }
 
-        public static void PrintArr(int[] arr)
+        private static void PrintArr(int[] arr)
         {
             if (arr == null || arr.Length == 0)
                 return;
@@ -366,7 +369,7 @@ namespace Lab_7
             Console.WriteLine();
         }
 
-        public static void PrintArr(double[] arr)
+        private static void PrintArr(double[] arr)
         {
             if (arr == null || arr.Length == 0)
                 return;

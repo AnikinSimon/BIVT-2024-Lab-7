@@ -17,6 +17,7 @@ namespace Lab_7
             private readonly string _name;
             private readonly string _surname;
             private double _time;
+
             public string Name
             {
                 get
@@ -77,7 +78,7 @@ namespace Lab_7
                         array[i - 1] = temp;
                         i--;
                     }
-                    else if (array[i].Time > array[i - 1].Time)
+                    else if (array[i].Time >= array[i - 1].Time)
                     {
                         i = j;
                         j++;
@@ -92,6 +93,7 @@ namespace Lab_7
                 }
             }
         }
+
         public class Group
         {
             private string _name;
@@ -119,7 +121,6 @@ namespace Lab_7
             {
                 _name = name;
                 _sportsmen = new Sportsman[0];
-
             }
 
             public Group(Group group)
@@ -127,7 +128,7 @@ namespace Lab_7
                 if (group == null) 
                     return;
                 _name = group.Name;
-                if (group.Sportsmen is null)
+                if (group.Sportsmen == null)
                 {
                     _sportsmen = null;
                     return;
@@ -201,11 +202,14 @@ namespace Lab_7
 
             public static Group Merge(Group group1, Group group2)
             {
-                if (group1.Sportsmen == null && group2.Sportsmen == null)
+                if (group1.Sportsmen is null && group2.Sportsmen is null)
                     return new Group("Финалисты");
 
                 if (group1.Sportsmen == null) return group2;
                 if (group2.Sportsmen == null) return group1;
+
+                group2.Sort();
+                group1.Sort();
 
                 Sportsman[] sportsmen = new Sportsman[group1.Sportsmen.Length + group2.Sportsmen.Length];
                 int l = 0, r = 0;
@@ -276,6 +280,9 @@ namespace Lab_7
 
             public void Shuffle()
             {
+
+                if (_sportsmen is null) return;
+
                 Sportsman[] men, women;
                 Split(out men, out women);
 
@@ -300,7 +307,6 @@ namespace Lab_7
                     _sportsmen[i++] = women[w++];
                 }
 
-                Array.Resize(ref _sportsmen, men.Length + women.Length);
             }
 
             public void Print()

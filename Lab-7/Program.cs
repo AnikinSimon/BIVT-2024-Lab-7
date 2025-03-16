@@ -21,7 +21,7 @@ namespace Lab_7
             //Test_Purple_1_2();
             //Test_Purple_2_2();
             //Test_Purple_2_3();
-            //Test_Purple_3_3();
+            Test_Purple_3_1();
             //Test_Purple_4_3();
             //Test_Purple_5_2();
         }

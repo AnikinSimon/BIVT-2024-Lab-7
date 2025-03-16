@@ -109,11 +109,7 @@ namespace Lab_7
             {
                 get
                 {
-                    if (_sportsmen is null) return null;
-
-                    Sportsman[] sportsmenCopy = new Sportsman[_sportsmen.Length];
-                    Array.Copy(_sportsmen, sportsmenCopy, sportsmenCopy.Length);
-                    return sportsmenCopy;
+                    return _sportsmen;
                 }
             }
 

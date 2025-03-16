@@ -197,13 +197,22 @@ namespace Lab_7
                         {
                             if (places1[k] < places2[k])
                             {
+                                if (isHigher == -1)
+                                {
+                                    isHigher = 0;
+                                    break;
+                                }
                                 isHigher = 1;
-                                break;
                             }
-                            else if (places1[k] < places2[k])
+                            if (places1[k] > places2[k])
                             {
+                                if (isHigher == 1)
+                                {
+                                    isHigher = 0;
+                                    break;
+                                }
+
                                 isHigher = -1;
-                                break;
                             }
                         }
                         if (isHigher == 1)
@@ -222,7 +231,7 @@ namespace Lab_7
                         }
 
                         double totalMark1 = array[i].TotalMark, totalMark2 = array[i - 1].TotalMark;
-                        if (totalMark1 < totalMark2)
+                        if (totalMark1 <= totalMark2)
                         {
                             i = j;
                             j++;
@@ -255,7 +264,6 @@ namespace Lab_7
             {
                 get
                 {
-
                     return _participants;
                 }
             }

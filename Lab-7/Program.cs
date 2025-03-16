@@ -793,6 +793,9 @@ namespace Lab_7
                 group2.Add(sport);
             }
 
+            Console.WriteLine(distancesTask_4_1_men.Length + distancesTask_4_2_men.Length);
+
+            Console.WriteLine(distancesTask_4_1_women.Length + distancesTask_4_2_women.Length);
 
             group1.Add(group2);
             group1.Shuffle();

@@ -170,7 +170,7 @@ namespace Lab_7
                         array[i] = array[i - 1];
                         array[i - 1] = temp;
                         i--;
-                    } else if (array[i].TotalScore < array[i - 1].TotalScore)
+                    } else if (array[i].TotalScore <= array[i - 1].TotalScore)
                     {
                         i = j;
                         j++;

@@ -109,7 +109,7 @@ namespace Lab_7
                 int n = array.Length;
                 for (int i = 1, j = 2; i < n;)
                 {
-                    if (i == 0 || array[i].Result < array[i - 1].Result)
+                    if (i == 0 || array[i].Result <= array[i - 1].Result)
                     {
                         i = j;
                         j++;

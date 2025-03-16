@@ -185,7 +185,7 @@ namespace Lab_7
                 int n = _sportsmen.Length;
                 for (int i = 1, j = 2; i < n;)
                 {
-                    if (i == 0 || _sportsmen[i].Time > _sportsmen[i - 1].Time)
+                    if (i == 0 || _sportsmen[i].Time >= _sportsmen[i - 1].Time)
                     {
                         i = j;
                         j++;
@@ -280,21 +280,32 @@ namespace Lab_7
 
             public void Shuffle()
             {
-
                 if (_sportsmen is null) return;
+
+                Sort();
 
                 Sportsman[] men, women;
                 Split(out men, out women);
 
-                Sportsman.Sort(men);
-                Sportsman.Sort(women);
+                if (women.Length == 0 || men.Length == 0)
+                    return;
 
                 int m = 0, w = 0, i = 0;
 
+                bool isManFirst = men[0].Time <= women[0].Time;
+
                 while (m < men.Length && w < women.Length)
                 {
-                    _sportsmen[i++] = men[m++];
-                    _sportsmen[i++] = women[w++];
+                    if (isManFirst)
+                    {
+                        _sportsmen[i++] = men[m++];
+                        _sportsmen[i++] = women[w++];
+                    } else
+                    {
+                        _sportsmen[i++] = women[w++];
+                        _sportsmen[i++] = men[m++];
+                    }
+                    
                 }
 
                 while (m < men.Length)

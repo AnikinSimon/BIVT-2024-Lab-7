@@ -5,3 +5,10 @@ C:\Users\sanik\source\repos\Lab-7\Lab-7\obj\Debug\Lab-7.csproj.AssemblyReference
 C:\Users\sanik\source\repos\Lab-7\Lab-7\obj\Debug\Lab-7.csproj.CoreCompileInputs.cache
 C:\Users\sanik\source\repos\Lab-7\Lab-7\obj\Debug\Lab-7.exe
 C:\Users\sanik\source\repos\Lab-7\Lab-7\obj\Debug\Lab-7.pdb
+C:\Users\sanik\source\repos\BIVT-2024-Lab-7\Lab-7\bin\Debug\Lab-7.exe.config
+C:\Users\sanik\source\repos\BIVT-2024-Lab-7\Lab-7\bin\Debug\Lab-7.exe
+C:\Users\sanik\source\repos\BIVT-2024-Lab-7\Lab-7\bin\Debug\Lab-7.pdb
+C:\Users\sanik\source\repos\BIVT-2024-Lab-7\Lab-7\obj\Debug\Lab-7.csproj.AssemblyReference.cache
+C:\Users\sanik\source\repos\BIVT-2024-Lab-7\Lab-7\obj\Debug\Lab-7.csproj.CoreCompileInputs.cache
+C:\Users\sanik\source\repos\BIVT-2024-Lab-7\Lab-7\obj\Debug\Lab-7.exe
+C:\Users\sanik\source\repos\BIVT-2024-Lab-7\Lab-7\obj\Debug\Lab-7.pdb

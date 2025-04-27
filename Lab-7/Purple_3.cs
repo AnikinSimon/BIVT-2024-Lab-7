@@ -45,7 +45,6 @@ namespace Lab_7
                     return marksCopy;
                 }
             }
-
             public int[] Places
             {
                 get
@@ -157,7 +156,6 @@ namespace Lab_7
 
                 }
             }
-
             public static void Sort(Participant[] array)
             {
                 if (array == null || array.Length < 2) return;
@@ -253,7 +251,6 @@ namespace Lab_7
             }
 
         }
-
         public abstract class Skating
         {
             protected Participant[] _participants;
@@ -343,7 +340,6 @@ namespace Lab_7
             }
 
         }
-
         public class FigureSkating: Skating
         {
             public FigureSkating(double[] moods): base(moods) { }
@@ -355,7 +351,6 @@ namespace Lab_7
                     _moods[i] += ((i + 1) / 10.0);
             }
         }
-
         public class IceSkating : Skating
         {
             public IceSkating(double[] moods) : base(moods) { }

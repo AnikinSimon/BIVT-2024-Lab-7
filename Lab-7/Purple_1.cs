@@ -69,7 +69,6 @@ namespace Lab_7
                 {
                     if (_marks is null || _coefs is null)
                     {
-                        Console.WriteLine("error");
                         return 0;
                     }
 
@@ -118,7 +117,6 @@ namespace Lab_7
             {
                 if (_coefs is null || coefs is null || coefs.Length < 4)
                 {
-                    Console.WriteLine("error");
                     return;
                 }
 
@@ -208,6 +206,8 @@ namespace Lab_7
                     return _name;
                 }
             }
+
+            public int[] Marks => _marks?.ToArray();
 
             public Judge(string name, int[] marks)
             {

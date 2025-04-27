@@ -239,6 +239,24 @@ namespace Lab_7
 
                 return generalReport; 
             }
+
+            public void AddResearch(Research research)
+            {
+                if (_researches == null)
+                    _researches = new Research[0];
+
+                Array.Resize(ref _researches, _researches.Length + 1);
+
+                _researches[_researches.Length - 1] = research;
+            }
+
+            public void AddResearch(Research[] researches)
+            {
+                foreach (Research research in researches)
+                {
+                    AddResearch(research);
+                }
+            }
         }
     }
 }
